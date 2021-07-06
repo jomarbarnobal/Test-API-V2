@@ -10,7 +10,13 @@ const getAllProducts = (req, res) =>{
 
 const getAProduct = (req, res) =>{
     Product.findById(req.params.id)
-    .then(results => res.status(200).json(results))
+    .then(results => {
+        if (!results){
+            return  res.status(404).json({success:false, msg:'id not found'})
+        }
+        res.status(200).json(results)
+    })
+
     .catch(err => console.log(err))
 }
 
@@ -21,6 +27,10 @@ const addAProduct = (req, res) =>{
         .then(results => res.status(201).json({success:true, data: results}))
         .catch(err => console.log(err))
 }
+const deleteAProduct = (req, res) =>{
+    Product.findByIdAndDelete(req.params.id)
+        .then(results => results?res.json({success:true, msg:`product ${req.params.id} has been deleted`}):res.status(404).json({success:false, msg:'id not found'}))
+        .catch(err => console.log(err))
+}
 
-
-module.exports = {getAllProducts, getAProduct, addAProduct}
+module.exports = {getAllProducts, getAProduct, addAProduct, deleteAProduct}

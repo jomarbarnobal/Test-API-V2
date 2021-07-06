@@ -21,8 +21,14 @@ const addAFlower = (req, res)=>{
         .catch(err => console.log(err))
 }
 
+const deleteAFlower = (req, res)=>{
+    Flower.findByIdAndDelete(req.params.id)
+        .then(results => res.json({success:true, msg:`${req.params.id} is deleted`}))
+        .catch(err => console.log(err))
+}
 module.exports = {
     getAllFlowers,
     getAFlower, 
-    addAFlower
+    addAFlower,
+    deleteAFlower
 }

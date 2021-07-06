@@ -18,3 +18,9 @@ app.use(express.json());
 
 app.use('/api/flowers', flowerRouter);
 app.use('/api/products', productRouter);
+
+
+
+app.use((req,res)=>{
+    res.status(404).json({msg:'not found'})
+})
