@@ -26,9 +26,19 @@ const deleteAFlower = (req, res)=>{
         .then(results => res.json({success:true, msg:`${req.params.id} is deleted`}))
         .catch(err => console.log(err))
 }
+const updateAFlower = (req, res)=>{
+    Flower.findByIdAndUpdate(req.params.id, req.body)
+        .then(results => {
+            if (!results){
+              return res.status(404).json({msg:'update failed id not found'})
+            }
+            res.status(201).json({msg:`updated product id ${req.params.id}`, data: results})
+        })
+}
 module.exports = {
     getAllFlowers,
     getAFlower, 
     addAFlower,
-    deleteAFlower
+    deleteAFlower,
+    updateAFlower,
 }

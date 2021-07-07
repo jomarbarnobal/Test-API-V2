@@ -33,4 +33,15 @@ const deleteAProduct = (req, res) =>{
         .catch(err => console.log(err))
 }
 
-module.exports = {getAllProducts, getAProduct, addAProduct, deleteAProduct}
+const updateAProduct = (req, res) => {
+    Product.findByIdAndUpdate(req.params.id,req.body)
+        .then(results => {
+            if (!results){
+               return res.status(404).json({msg:'update failed id not found'})
+            }
+            res.status(201).json({msg:`updated product id ${req.params.id}`, data: results})
+        })
+        .catch(err => console.log(err))
+}
+
+module.exports = {getAllProducts, getAProduct, addAProduct, deleteAProduct, updateAProduct}
