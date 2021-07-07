@@ -39,7 +39,7 @@ const updateAProduct = (req, res) => {
             if (!results){
                return res.status(404).json({msg:'update failed id not found'})
             }
-            res.status(201).json({msg:`updated product id ${req.params.id}`, data: results})
+            res.status(201).json({msg:`updated product id ${req.params.id}`})
         })
         .catch(err => console.log(err))
 }
